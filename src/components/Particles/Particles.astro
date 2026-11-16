@@ -1,0 +1,8 @@
+---
+// Lightweight CSS particle field (used inside hero; canvas background handles the rest).
+---
+<div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+  {Array.from({ length: 14 }).map((_, i) => (
+    <span class="animate-floaty absolute h-1.5 w-1.5 rounded-full bg-cyan-300/80" style={`left:${(i * 7 + 3) % 100}%; top:${(i * 13 + 8) % 90}%; animation-delay:${i * 0.4}s`}></span>
+  ))}
+</div>

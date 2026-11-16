@@ -1,0 +1,9 @@
+---
+// Decorative galaxy layer (CSS rings + glow). Kept light; the canvas does the heavy work.
+---
+<div class="relative mx-auto h-56 w-56 sm:h-72 sm:w-72" aria-hidden="true">
+  <div class="absolute inset-0 rounded-full border border-cyan-400/40 animate-spin-slow"></div>
+  <div class="absolute inset-6 rounded-full border border-violet-400/40 animate-spin-slow" style="animation-direction:reverse"></div>
+  <div class="absolute inset-14 rounded-full bg-gradient-to-br from-blue-600/60 via-violet-600/50 to-cyan-400/40 blur-md animate-pulse-glow"></div>
+  <div class="absolute inset-0 flex items-center justify-center text-5xl">✦</div>
+</div>

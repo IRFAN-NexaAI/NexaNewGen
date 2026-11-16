@@ -1,0 +1,46 @@
+---
+// Living background: canvas starfield + nebula gradients + particles.
+// Modes: HIGH full canvas, BALANCED reduced, LOW CSS-only (no canvas/WebGL).
+// Auto-chosen by device capability; respects prefers-reduced-motion; pauses when hidden.
+---
+<div class="bg-fixed" aria-hidden="true">
+  <canvas id="bg-canvas" class="bg-canvas"></canvas>
+  <div class="nebula nebula-blue animate-nebula"></div>
+  <div class="nebula nebula-purple animate-nebula"></div>
+  <div class="nebula nebula-cyan animate-nebula"></div>
+</div>
+<script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mem = navigator.deviceMemory || 4;
+  const cores = navigator.hardwareConcurrency || 4;
+  const small = innerWidth < 640;
+  let mode = 'high';
+  if (reduced || mem <= 2 || (cores <= 4 && small)) mode = 'low';
+  else if (mem <= 4 || small) mode = 'balanced';
+  document.body.dataset.mode = mode;
+  const canvas = document.getElementById('bg-canvas');
+  if (canvas && mode !== 'low' && !reduced) {
+    const ctx = canvas.getContext('2d');
+    const N = mode === 'high' ? 220 : 90;
+    let stars = [];
+    let raf = 0, scrollY = 0, running = true;
+    const resize = () => { canvas.width = innerWidth; canvas.height = innerHeight;
+      stars = Array.from({ length: N }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.6 + 0.3, s: Math.random() * 0.4 + 0.1, d: Math.random() * 0.6 + 0.2 })); };
+    resize(); addEventListener('resize', resize);
+    addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+    const tick = () => {
+      if (!running) return;
+      const off = scrollY * 0.15;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const st of stars) {
+        st.y += st.s * st.d; if (st.y > canvas.height) st.y = 0;
+        const y = (st.y + off * st.d) % canvas.height;
+        ctx.globalAlpha = 0.4 + 0.6 * Math.abs(Math.sin(Date.now() / 1200 + st.x));
+        ctx.fillStyle = '#a5f3fc'; ctx.beginPath(); ctx.arc(st.x, y, st.r, 0, 7); ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    document.addEventListener('visibilitychange', () => { running = !document.hidden; if (running) { cancelAnimationFrame(raf); tick(); } });
+    tick();
+  }
+</script>

@@ -1,0 +1,11 @@
+@keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes spin-slow { to { transform:rotate(360deg) } }
+@keyframes pulse-glow { 0%,100%{opacity:.6} 50%{opacity:1} }
+@keyframes nebula-drift { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(4%, -3%) scale(1.08)} 100%{transform:translate(0,0) scale(1)} }
+.animate-floaty{animation:floaty 6s ease-in-out infinite}
+.animate-spin-slow{animation:spin-slow 24s linear infinite}
+.animate-pulse-glow{animation:pulse-glow 3s ease-in-out infinite}
+.animate-nebula{animation:nebula-drift 26s ease-in-out infinite}
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease}
+.reveal.visible{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important} html{scroll-behavior:auto} }

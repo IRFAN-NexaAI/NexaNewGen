@@ -1,0 +1,5 @@
+.portal-ring{position:absolute; inset:0; border-radius:9999px; border:2px solid currentColor; opacity:.7}
+.portal-card{transition:transform .35s ease, box-shadow .35s ease}
+.portal-card:hover,.portal-card:focus-visible{transform:translateY(-6px) scale(1.02)}
+.portal-card.expanding{transform:scale(1.15); box-shadow:0 0 60px currentColor}
+.portal-card.expanding .portal-ring{animation:spin-slow 1s linear infinite}

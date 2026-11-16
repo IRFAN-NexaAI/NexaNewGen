@@ -1,0 +1,8 @@
+---
+// GSAP-free reveal-on-scroll (IntersectionObserver) + optional GSAP hook.
+// GSAP is used in the React hero; this keeps static pages light and scroll-hijack free.
+---
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>

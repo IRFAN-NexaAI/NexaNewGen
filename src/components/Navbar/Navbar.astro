@@ -1,0 +1,15 @@
+---
+import { navLinks } from '../../data/navigation';
+---
+<header class="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" aria-label="Main navigation">
+    <a href="/" class="text-lg font-black tracking-widest"><span class="grad-text">IRFAN – NEXA NEWGEN</span></a>
+    <ul class="hidden gap-5 md:flex">
+      {navLinks.map((l) => <li><a class="text-sm text-slate-200 hover:text-cyan-300" href={l.href}>{l.label}</a></li>)}
+    </ul>
+    <a href="/ai-tools" class="btn-primary !px-4 !py-2 text-sm">Explore AI Tools</a>
+  </nav>
+  <nav class="flex gap-4 overflow-x-auto px-4 pb-2 md:hidden" aria-label="Mobile navigation">
+    {navLinks.map((l) => <a class="whitespace-nowrap text-xs text-slate-300" href={l.href}>{l.label}</a>)}
+  </nav>
+</header>

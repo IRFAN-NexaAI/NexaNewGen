@@ -1,0 +1,45 @@
+---
+import Hero from './Hero/Hero.astro';
+import PortalNavigation from './PortalNavigation/PortalNavigation.astro';
+import ToolsDirectory from './Cards/ToolsDirectory';
+import PortalCanvas from './Portal/PortalCanvas';
+import { portals } from '../data/navigation';
+import { aiTools } from '../data/ai-tools';
+import { products } from '../data/products';
+import { posts } from '../data/blog';
+export interface Props { page: string }
+const { page } = Astro.props;
+const section = (t: string, d: string, tools?: string) => ({ t, d, tools });
+const map: Record<string, { t: string; d: string; cat?: string }> = {
+  'ai-video': { t: 'AI Video Tools', d: 'Cinematic AI video — generation, editing and motion.', cat: 'AI Video' },
+  'ai-image': { t: 'AI Image Tools', d: 'Colourful creative universes — image generation and editing.', cat: 'AI Image' },
+  'ai-music': { t: 'AI Music Tools', d: 'Animated sound-wave environment — music and voice AI.', cat: 'AI Audio' },
+  'ai-automation': { t: 'AI Automation', d: 'Cybernetic digital environment — workflows that run themselves.', cat: 'AI Automation' },
+  'ai-writing': { t: 'AI Writing Tools', d: 'Words, faster — drafting, editing and long-form AI help.', cat: 'AI Writing' },
+  'ai-learning': { t: 'AI Learning', d: 'The knowledge galaxy — learn AI step by step.', cat: 'AI Productivity' },
+};
+---
+{page === 'index' && (<>
+  <Hero />
+  <div class="reveal glass mx-auto max-w-3xl p-6 text-center"><h2 class="text-xl font-bold">A Living Universe</h2><p class="mt-2 text-sm text-slate-300">The background behind this page is alive — stars drift, nebulae shift as you scroll, and the portal below spins in real 3D on capable devices. On low-powered phones it quietly switches to a lightweight CSS mode.</p><PortalCanvas client:visible /></div>
+  <PortalNavigation />
+  <section class="reveal mx-auto max-w-6xl px-4 py-8"><h2 class="text-2xl font-black">Featured <span class="grad-text">AI Tools</span></h2><div class="mt-4 grid gap-4 sm:grid-cols-3">{aiTools.slice(0, 3).map((t) => (<article class="glass p-5"><h3 class="font-bold text-white">{t.name}</h3><p class="text-xs text-violet-300">{t.category} · {t.pricing}</p><p class="mt-2 text-sm text-slate-300">{t.description}</p><a class="text-sm text-cyan-300" href={t.url} target="_blank" rel="noopener noreferrer">Official website →</a></article>))}</div><p class="mt-4"><a class="btn-primary" href="/ai-tools">Browse all tools</a></p></section>
+</>)}
+{page === 'about' && (<section class="py-10 text-center">
+  <div class="reveal relative mx-auto flex h-48 w-48 items-center justify-center">
+    <div class="portal-ring border-cyan-400 animate-spin-slow"></div><div class="portal-ring inset-4 border-violet-400 animate-spin-slow" style="animation-direction:reverse"></div>
+    <div class="glass flex h-32 w-32 items-center justify-center rounded-full text-center text-xs text-slate-400">PHOTO<br/>PLACEHOLDER<br/>(no fake photo)</div>
+  </div>
+  <h1 class="reveal mt-6 text-4xl font-black">IRFAN</h1>
+  <p class="reveal mt-3 text-lg grad-text font-bold">AI CREATOR · DIGITAL EXPLORER · CINEMATIC CREATOR · TECHNOLOGY ENTHUSIAST</p>
+  <p class="reveal mx-auto mt-4 max-w-2xl text-slate-300">I build cinematic AI stories and explore the tools shaping the next generation of creation. This universe is where I collect the best tools, tutorials and ideas — and share them with you.</p>
+  <p class="reveal mt-6"><a class="btn-primary" href="/ai-tools">Explore AI Tools</a></p>
+</section>)}
+{page === 'ai-tools' && (<section class="py-10"><h1 class="reveal text-3xl font-black">AI Tools <span class="grad-text">Directory</span></h1><p class="reveal mt-2 text-slate-300">Search, filter and sort. Official links only — affiliate links are placeholders until real ones are provided.</p><div class="reveal mt-6"><ToolsDirectory client:load /></div></section>)}
+{map[page] && (<section class="py-10"><h1 class="reveal text-3xl font-black">{map[page].t}</h1><p class="reveal mt-2 text-slate-300">{map[page].d}</p><div class="mt-6 grid gap-4 sm:grid-cols-2">{aiTools.filter((t) => t.category === map[page].cat).map((t) => (<article class="glass reveal p-5"><h2 class="font-bold text-white">{t.name}</h2><p class="text-xs text-violet-300">{t.category} · {t.pricing}</p><p class="mt-2 text-sm text-slate-300">{t.description}</p><a class="text-sm text-cyan-300" href={t.url} target="_blank" rel="noopener noreferrer">Official website →</a></article>))}</div><p class="mt-6"><a class="btn-ghost" href="/ai-tools">← All AI tools</a></p></section>)}
+{page === 'products' && (<section class="py-10"><h1 class="reveal text-3xl font-black">Recommended <span class="grad-text">Products</span></h1><p class="reveal mt-2 text-sm text-slate-300">Affiliate disclosure: links below are placeholders (<code>#</code>) until real affiliate URLs are provided. No prices are shown because none are verified. See the <a href="/affiliate-disclosure">Affiliate Disclosure</a>.</p><div class="mt-6 grid gap-4 sm:grid-cols-3">{products.map((p) => (<article class="glass reveal p-5"><div class="flex h-32 items-center justify-center rounded-lg bg-gradient-to-br from-blue-900/60 to-violet-900/60 text-4xl" role="img" aria-label={p.imageAlt}>▣</div><h2 class="mt-3 font-bold text-white">{p.name}</h2><p class="mt-1 text-sm text-slate-300">{p.description}</p><ul class="mt-2 list-disc pl-5 text-xs text-slate-400">{p.specs.map((s) => <li>{s}</li>)}</ul><p class="mt-2 text-sm text-slate-400">Price: not verified</p><a class="btn-primary mt-3 !px-4 !py-2 text-sm" href={p.affiliateUrl}>CHECK PRICE</a></article>))}</div></section>)}
+{page === 'tutorials' && (<section class="py-10"><h1 class="reveal text-3xl font-black">Tutorials</h1><p class="reveal mt-2 text-slate-300">Learn step by step. New tutorials are added as they are written — nothing here is auto-generated filler.</p><div class="mt-6 grid gap-4 sm:grid-cols-3">{posts.map((p) => (<article class="glass reveal p-5"><h2 class="font-bold text-white">{p.title}</h2><p class="mt-2 text-sm text-slate-300">{p.excerpt}</p><a class="text-sm text-cyan-300" href="/blog">Read in the blog →</a></article>))}</div></section>)}
+{page === 'blog' && (<section class="py-10"><h1 class="reveal text-3xl font-black">Blog &amp; <span class="grad-text">News</span></h1><div class="mt-6 space-y-4">{posts.map((p) => (<article class="glass reveal p-5"><p class="text-xs text-slate-400">{p.date}</p><h2 class="mt-1 font-bold text-white">{p.title}</h2><p class="mt-1 text-sm text-slate-300">{p.excerpt}</p></article>))}</div></section>)}
+{page === 'contact' && (<section class="py-10"><h1 class="reveal text-3xl font-black">Contact</h1><p class="reveal mt-2 max-w-2xl text-slate-300">For collaborations, questions or feedback about NEXA NEWGEN, use the contact form below. (Form is a front-end placeholder — no backend, no data is sent anywhere until a form service is connected with your approval.)</p><form class="reveal glass mt-6 max-w-xl space-y-3 p-5" onsubmit="return false"><label class="block text-sm">Name<input required class="mt-1 w-full rounded-lg bg-black/50 border border-white/20 px-3 py-2 text-white" /></label><label class="block text-sm">Email<input required type="email" class="mt-1 w-full rounded-lg bg-black/50 border border-white/20 px-3 py-2 text-white" /></label><label class="block text-sm">Message<textarea required rows="4" class="mt-1 w-full rounded-lg bg-black/50 border border-white/20 px-3 py-2 text-white"></textarea></label><button class="btn-primary" type="submit">Send Message</button></form></section>)}
+{page === 'privacy' && (<section class="py-10 prose prose-invert max-w-3xl"><h1 class="text-3xl font-black">Privacy Policy</h1><p class="mt-4 text-slate-300">This website is a static site. It does not run its own backend, does not collect accounts or passwords, and does not sell personal data. If analytics is added later, it will be disclosed here first. External links (for example official AI tool websites) are governed by those sites' own privacy policies.</p><p class="mt-2 text-slate-300">Contact for privacy questions: use the <a href="/contact">contact page</a>.</p><p class="mt-2 text-sm text-slate-400">Last updated: 16 November 2026.</p></section>)}
+{page === 'affiliate-disclosure' && (<section class="py-10 max-w-3xl"><h1 class="text-3xl font-black">Affiliate Disclosure</h1><p class="mt-4 text-slate-300">IRFAN – NEXA NEWGEN may earn a commission if you buy through links on this site, at no extra cost to you. This helps keep the site free.</p><p class="mt-2 text-slate-300">Right now, all product links on this site are placeholders (<code>#</code>) — no real affiliate URLs have been added yet, and no affiliate partnership is claimed for any tool. Links will only be replaced with real affiliate URLs when the owner provides them.</p></section>)}

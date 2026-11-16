@@ -1,0 +1,23 @@
+---
+import Galaxy from '../Galaxy/Galaxy.astro';
+import Particles from '../Particles/Particles.astro';
+---
+<section id="hero" class="relative overflow-hidden px-4 pb-20 pt-16 text-center sm:pt-24" data-theme="hero">
+  <Particles />
+  <div id="hero-parallax" class="relative">
+    <Galaxy />
+    <h1 class="hero-title grad-text mx-auto mt-8 max-w-4xl text-4xl font-black leading-tight">EXPLORE THE NEXT GENERATION OF AI.</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg">Discover powerful AI tools, creative technologies, digital innovation and futuristic possibilities.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="/ai-tools" class="btn-primary">EXPLORE AI TOOLS</a>
+      <a href="/about" class="btn-ghost">DISCOVER MY UNIVERSE</a>
+    </div>
+  </div>
+</section>
+<script>
+  // Desktop-only subtle mouse parallax. Disabled on touch / reduced motion.
+  if (matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const el = document.getElementById('hero-parallax');
+    addEventListener('mousemove', (e) => { if (!el) return; const x = (e.clientX / innerWidth - 0.5) * 14, y = (e.clientY / innerHeight - 0.5) * 10; el.style.transform = `translate(${x}px, ${y}px)`; }, { passive: true });
+  }
+</script>
