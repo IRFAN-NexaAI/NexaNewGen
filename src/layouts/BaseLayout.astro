@@ -8,6 +8,7 @@ import ScrollAnimations from '../components/ScrollAnimations/ScrollAnimations.as
 import Intro from '../components/Portal/Intro.astro';
 export interface Props { title: string; description: string; path?: string; theme?: string; showIntro?: boolean }
 const { title, description, path = '/', theme = 'hero', showIntro = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const crumbs = path.split('/').filter(Boolean);
 ---
 <!doctype html>
@@ -26,8 +27,8 @@ const crumbs = path.split('/').filter(Boolean);
   <main class="relative z-10 mx-auto max-w-6xl px-4">
     {crumbs.length > 0 && (
       <nav aria-label="Breadcrumb" class="py-4 text-sm text-slate-400">
-        <a href="/" class="hover:text-cyan-300">Home</a>
-        {crumbs.map((c, i) => (<span> / <a href={'/' + crumbs.slice(0, i + 1).join('/')} class="hover:text-cyan-300">{c.replace(/-/g, ' ')}</a></span>))}
+        <a href={base} class="hover:text-cyan-300">Home</a>
+        {crumbs.map((c, i) => (<span> / <a href={base + crumbs.slice(0, i + 1).join('/')} class="hover:text-cyan-300">{c.replace(/-/g, ' ')}</a></span>))}
       </nav>
     )}
     <slot />
