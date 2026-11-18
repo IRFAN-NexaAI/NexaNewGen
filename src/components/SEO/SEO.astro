@@ -2,8 +2,10 @@
 // SEO head tags: title, description, canonical, OG, Twitter, JSON-LD.
 export interface Props { title: string; description: string; path?: string; type?: string }
 const { title, description, path = '/', type = 'website' } = Astro.props;
-const site = Astro.site?.toString().replace(/\/$/, '') || 'https://irfan-nexanewgen.pages.dev';
-const url = site + path;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const basePath = base.replace(/\/$/, '');
+const site = Astro.site?.toString().replace(/\/$/, '') || 'https://irfan-nexaai.pages.dev';
+const url = site + basePath + path;
 const crumbs = path.split('/').filter(Boolean);
 ---
 <title>{title}</title>
@@ -28,8 +30,8 @@ const crumbs = path.split('/').filter(Boolean);
 {crumbs.length > 0 && (
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org", "@type": "BreadcrumbList",
-  "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": site + "/" },
-    ...crumbs.map((c, i) => ({ "@type": "ListItem", "position": i + 2, "name": c.replace(/-/g, ' '), "item": site + '/' + crumbs.slice(0, i + 1).join('/') }))]
+  "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": site + basePath + "/" },
+    ...crumbs.map((c, i) => ({ "@type": "ListItem", "position": i + 2, "name": c.replace(/-/g, ' '), "item": site + basePath + '/' + crumbs.slice(0, i + 1).join('/') }))]
 })} />
 )}
 <!-- Analytics / Search Console: placeholder only. No keys, no tracking IDs. -->
