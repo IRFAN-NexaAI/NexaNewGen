@@ -5,10 +5,12 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // IRFAN – NEXA NEWGEN — Astro 5 (pinned, NOT Astro 7) + React 19 + Tailwind 4
-// Site URL is the proposed Cloudflare Pages address. No deploy has been done;
-// change `site` only when the real Pages project name is confirmed at deploy time.
+// GitHub Pages build (PAGES_BUILD=1): site served from /NexaNewGen/ subpath.
+// Cloudflare Pages build (default): site served from the domain root.
+const isPages = process.env.PAGES_BUILD === '1';
 export default defineConfig({
-  site: 'https://irfan-nexanewgen.pages.dev',
+  site: isPages ? 'https://irfan-nexaai.github.io' : 'https://irfan-nexaai.pages.dev',
+  base: isPages ? '/NexaNewGen' : '/',
   integrations: [react(), sitemap()],
   vite: { plugins: [tailwindcss()] },
 });
