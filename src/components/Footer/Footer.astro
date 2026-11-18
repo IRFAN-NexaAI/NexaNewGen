@@ -1,11 +1,12 @@
 ---
 import { navLinks } from '../../data/navigation';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <footer class="mt-16 border-t border-white/10 bg-black/60">
   <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
     <div><p class="font-black tracking-widest grad-text">IRFAN – NEXA NEWGEN</p><p class="mt-2 text-sm text-slate-400">ENTER THE FUTURE. EXPLORE THE IMPOSSIBLE.</p></div>
     <nav aria-label="Footer navigation"><p class="mb-2 font-bold">Explore</p><ul class="space-y-1 text-sm">{navLinks.map((l) => <li><a class="text-slate-300 hover:text-cyan-300" href={l.href}>{l.label}</a></li>)}</ul></nav>
-    <div><p class="mb-2 font-bold">Legal</p><ul class="space-y-1 text-sm"><li><a class="text-slate-300 hover:text-cyan-300" href="/privacy">Privacy Policy</a></li><li><a class="text-slate-300 hover:text-cyan-300" href="/affiliate-disclosure">Affiliate Disclosure</a></li><li><a class="text-slate-300 hover:text-cyan-300" href="/contact">Contact</a></li></ul>
+    <div><p class="mb-2 font-bold">Legal</p><ul class="space-y-1 text-sm"><li><a class="text-slate-300 hover:text-cyan-300" href={base + "privacy"}>Privacy Policy</a></li><li><a class="text-slate-300 hover:text-cyan-300" href={base + "affiliate-disclosure"}>Affiliate Disclosure</a></li><li><a class="text-slate-300 hover:text-cyan-300" href={base + "contact"}>Contact</a></li></ul>
     <p class="mt-4 text-xs text-slate-500">Some links may be affiliate links. See the Affiliate Disclosure.</p></div>
   </div>
   <p class="border-t border-white/10 py-4 text-center text-xs text-slate-500">© 2026 IRFAN – NEXA NEWGEN. All rights reserved.</p>
